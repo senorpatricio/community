@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>{% block head_title %}Slenderiiz Community{% endblock head_title %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/icon.png' %}"/>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
+          integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.structure.min.css' %}">
+
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    
+
+    {% block head_extra %} {% endblock head_extra %}
+</head>
+<body>
+<div class="container">
+<ul class="nav nav-pills pull-left">
+    <li role="presentation"><img src="{% static 'images/Slenderiiz_Logo_Orange.png' %}" alt="" id="header-logo"></li>
+
+
+{#    <li role="presentation"><a href="{% url 'posts:create' %}">Create a post</a></li>#}
+    {% if user.is_authenticated %}
+
+    {% endif %}
+</ul>
+
+<ul class="nav nav-pills pull-right">
+    <li role="presentation"><a href="{% url 'posts:community' %}">Home</a></li>
+    {% if not user.is_authenticated %}
+    <li role="presentation"><a href="{% url 'auth_login' %}">Login</a></li>
+    <li role="presentation"><a href="{% url 'registration_register' %}">Register</a></li>
+    {% elif user.is_authenticated %}
+    <li role="presentation"><a href="{% url 'auth_logout' %}">Logout</a></li>
+
+    {% endif %}
+
+</ul>
+
+
+
+{% if messages %}
+	<div class="messages">
+		
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+
+	</div>
+{% endif %}
+
+
+<div class="header">
+	
+</div>
+
+<div class="nav">
+	  
+</div>
+{% block content %} {% endblock content %}
+</div>
+
+
+<script   src="http://code.jquery.com/jquery-1.12.2.min.js"
+          integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk="   crossorigin="anonymous"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<!-- <script src="{% static 'js/mediaelementplayer.min.js' %}"></script>
+<script src="{% static 'js/mediaelement-and-player.min.js' %}"></script>
+<script src="{% static 'js/mediaelement.min.js' %}"></script> -->
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('register') > -1) {
+            $('body').css('background-image', 'url({% static "images/PowerBoostBackgroundF2F2F2.png" %})').css('background-size', 'cover');
+            $('#id_username').click(function () {
+                $('#id_username').css('margin-bottom', '0');
+                $('#hint_id_username').css('display', 'block');
+            });
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('login') > -1) {
+            $('#id_username').css('margin-bottom', '35px');
+            $('#hint_id_username').css('display', 'block');
+            $('body').css('background-image', 'url({% static "images/Xceler8Backgroundf3f3f3.png" %})').css('background-size', 'cover')
+                    .css('background-position', 'bottom center');;
+
+        }
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('create') > -1) {
+            $('body').css('background-image', 'url({% static "images/BeautyBoostBackground2.jpg" %})').css('background-size', 'cover')
+                    .css('background-position', 'bottom center');
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('community') > -1) {
+            $('body').css('background-image', 'url({% static "images/BeautyBoostBackground.png" %})').css('background-size', 'cover')
+                    .css('background-position', 'bottom center');
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        if(pathname.indexOf('reset') > -1) {
+            $('body').css('background-image', 'url({% static "images/BeautyBoostBackground.png" %})').css('background-size', 'cover')
+                    .css('background-position', 'bottom center');
+            $("#id_email").css('margin-top', '55px');
+        }
+    });
+</script>
+
+<!-- Registration Styling -->
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $("#id_username").attr('placeholder', '{{form.username.label}}');
+        $("#id_email").attr('placeholder', '{{form.email.label}}');
+        $("#id_password").attr('placeholder', '{{form.password.label}}');
+        $("#id_password1").attr('placeholder', '{{form.password1.label}}');
+        $("#id_password2").attr('placeholder', '{{form.password2.label}}');
+        $("#id_new_password1").attr('placeholder', '{{form.new_password1.label}}');
+        $("#id_new_password2").attr('placeholder', '{{form.new_password2.label}}');
+    });
+</script>
+<!-- Upload Styling -->
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $("#id_first_name").attr('placeholder', '{{form.first_name.label}}');
+        $("#id_last_name").attr('placeholder', '{{form.last_name.label}}');
+        $("#div_id_pounds_lost").css('margin-top', '35px');
+        $("#id_beforeimage").css('border', 'none').css('background-color', 'transparent');
+        $("#id_afterimage").css('border', 'none').css('background-color', 'transparent');
+    });
+</script>
+<!-- Filtering -->
+<script type="text/javascript">
+     $(document).ready(function() {
+        $('#pound-button1').on('click', function () {
+            $('.overlay-weight').each(function() {
+                if($(this).html() <= 25 && $(this).html() > 0) {
+                    $(this).parent().parent().parent().parent().show();
+                }
+                else {
+                    $(this).parent().parent().parent().parent().hide();   
+                }
+            
+            });
+        });
+        $('#pound-button2').on('click', function () {
+            $('.overlay-weight').each(function() {
+                if($(this).html() <= 50 && $(this).html() > 25) {
+                    $(this).parent().parent().parent().parent().show();
+                }
+                else {
+                    $(this).parent().parent().parent().parent().hide();   
+                }
+            
+            });
+        });
+
+        $('#pound-button3').on('click', function () {
+            $('.overlay-weight').each(function() {
+                if($(this).html() <= 75 && $(this).html() > 50) {
+                    $(this).parent().parent().parent().parent().show();
+                }
+                else {
+                    $(this).parent().parent().parent().parent().hide();   
+                }
+            
+            });
+        });
+
+        $('#pound-button4').on('click', function () {
+            $('.overlay-weight').each(function() {
+                if($(this).html() <= 100 && $(this).html() > 75) {
+                    $(this).parent().parent().parent().parent().show();
+                }
+                else {
+                    $(this).parent().parent().parent().parent().hide();   
+                }
+            
+            });
+        });
+
+        $('#pound-button5').on('click', function () {
+            $('.overlay-weight').each(function() {
+                if($(this).html() <= 150 && $(this).html() > 100) {
+                    $(this).parent().parent().parent().parent().show();
+                }
+                else {
+                    $(this).parent().parent().parent().parent().hide();   
+                }
+            
+            });
+        });
+
+        $('#pound-button6').on('click', function () {
+            $('.overlay-weight').each(function() {
+                $(this).parent().parent().parent().parent().show();            
+            });
+        });
+
+     }); 
+</script>
+<script>
+    $(document).ready(function() {
+        var $gridbeforeafter = $('.grid-beforeafter');
+        $gridbeforeafter.click(function(e) {
+            e.stopPropagation();
+            $(this).toggleClass("div-expand");
+            $(this).parent('.col-sm-3').toggleClass("col-sm-3-expand");
+            $(this).children('.grid-before-photo').children('img').toggleClass('grid-photo-expand');
+            $(this).children('.grid-after-photo').children('img').toggleClass('grid-photo-expand');
+            $(this).children('.overlay').children('.caption').toggleClass('caption-large');
+            // alert(this.id);
+                
+           
+        });
+
+        $(document).click(function() {
+            $(".grid-beforeafter.div-expand").trigger("click");
+        });   
+
+        
+        $('div#56').children('.overlay').children('.caption').append("<a href='#' class='glyphicon glyphicon-play-circle'></a>");
+        
+
+    });
+
+</script>
+
+<!-- <script>
+    $(document).ready(function() {
+        $('div#56').children('.overlay').children('.caption').children('a').click(function() {
+            $('body').append('<div class="wrapper"></div>');
+            $('.wrapper').fadeIn('fast', function() {
+                $('body').append('<div class="lightbox"></div>');
+                $('.lightbox').fadeIn();    
+
+                
+            });
+        
+        });
+    })
+
+</script> -->
+
+<!-- <script>
+    // using jQuery
+    $('video,audio').mediaelementplayer(
+        defaultVideoWidth: 480,
+        defaultVideoHeight: 270,
+        startVolume: 0.8,
+        enableAutosize: true,
+        features: ['playpause','progress','current','duration','tracks','volume','fullscreen'],
+        alwaysShowControls: false,
+        enableKeyboard: true,
+    );
+</script> -->
+
+
+</body>
+</html>
+
+

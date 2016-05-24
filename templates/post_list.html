@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-sm-12">
+
+    <h1>Slenderiiz Community</h1>
+
+    <ul id="pounds-filter">
+        <li role="presentation">
+            <p><a href="#" id="pound-button6">All </a> | </p>
+        </li>
+        <li role="presentation">
+            <p><a href="#" id="pound-button1">Under 25 </a> | </p>
+        </li>
+        <li role="presentation">
+            <p><a href="#" id="pound-button2">50 </a> | </p>
+        </li>
+        <li role="presentation">
+            <p><a href="#" id="pound-button3">75 </a> | </p>
+        </li>
+        <li role="presentation">
+            <p><a href="#" id="pound-button4">100 </a> | </p>
+        </li>
+        <li role="presentation">
+            <p><a href="#" id="pound-button5">150 </a> | </p>
+        </li>
+        <li>
+            <a href="{% url 'posts:create' %}">Upload</a>
+        </li>
+    </ul> <!-- end pounds-filter -->
+    <hr>
+    <br>
+</div>
+
+<div class="row">
+
+
+  <div class="col-sm-12">
+
+
+        <div class="row no-gutter">
+        {% for obj in object_list %}
+            {% if not obj.draft %}
+
+            <div class="col-xs-6 col-sm-3 col-md-2">
+                <div class="grid-beforeafter orange" id="{{ obj.id }}">
+
+                    {% if obj.beforeimage %}
+                        <div class="grid-before-photo">
+                            <img src="{{ obj.beforeimage.url }}" class="img-responsive" alt="">
+                        </div>
+                        <div class="grid-after-photo">
+                            <img src="{{ obj.afterimage.url }}" class="img-responsive" alt="">
+                        </div>
+                    {% endif %}
+
+                    <div class="overlay">
+                        <div class="caption">
+                            <h3 class="overlay-name">{{ obj.first_name }} {{ obj.last_name }}</h3>
+
+                            <h2 class="overlay-weight">{{ obj.pounds_lost }}</h2>
+                            <p class="overlay-text">LBS LOST</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {% endif %} {# end draft if #}
+        {% endfor %}
+        </div> <!-- end row -->
+
+  </div>
+
+
+
+ {% cycle "" "</div><div class='row'>" %}
+
+
+
+
+</div>
+
+
+    <!-- <div class="pagination">
+	    <span class="step-links">
+	        {% if object_list.has_previous %}
+	            <a href="?page={{ object_list.previous_page_number }}
+	            {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+	        {% endif %}
+
+	        <span class="current">
+	            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+	        </span>
+
+	        {% if object_list.has_next %}
+	            <a href="?page={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+	        {% endif %}
+	    </span>
+	</div> -->
+{% endblock content %}
+
+
